@@ -50,26 +50,71 @@
         <div class="row">
             <div class="col-sm">
                 <h3 class="text-center text-uppercase fw-bold">Thêm mới thể loại</h3>
-                <form action="process_article.php" method="post">
+                <?php
+                    $sql_select_tgia = "select ma_tgia, ten_tgia from tacgia";
+                    $result_select_tgia = pdo($pdo, $sql_select_tgia);
+                    $sql_select_tloai = "select ma_tloai, ten_tloai from theloai";
+                    $result_select_tloai = pdo($pdo, $sql_select_tloai);
+                ?>
+                <form action="add_article.php" method="post">
                     <div class="input-group mt-3 mb-3">
-                        <span class="input-group-text" id="lblCatName">Tên thể loại</span>
-                        <input type="text" class="form-control" name="txtCatName" >
+                        <span class="input-group-text" id="lblCatName">Tiêu đề</span>
+                        <input type="text" class="form-control" name="I_tieuDe" >
                     </div>
                     <div class="input-group mt-3 mb-3">
-                        <span class="input-group-text" id="lblCatName">Tên thể loại</span>
-                        <input type="text" class="form-control" name="txtCatName" >
+                        <span class="input-group-text" id="lblCatName">Tên bài hát</span>
+                        <input type="text" class="form-control" name="I_tenBaiHat" >
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="inputGroupSelect01">Tên thể loại</label>
+                        <select class="form-select" id="inputGroupSelect01" name = "I_tenTheLoai">
+                            <option selected></option>
+                            <?php
+                                if($result_select_tloai->rowCount() > 0){
+                                    $i=0;
+                                    while($row = $result_select_tloai->fetch(PDO::FETCH_ASSOC)){
+                                        $i+=1;
+                                    
+                            ?>
+                                <option value="<?php echo $row['ma_tloai'] ?>"><?php echo $row['ten_tloai'] ?></option>
+                            <?php       
+                                    }
+                                };
+                            ?>
+                        </select>
                     </div>
                     <div class="input-group mt-3 mb-3">
-                        <span class="input-group-text" id="lblCatName">Tên thể loại</span>
-                        <input type="text" class="form-control" name="txtCatName" >
+                        <span class="input-group-text" id="lblCatName">Tóm tắt</span>
+                        <input type="text" class="form-control" name="I_tomTat" >
                     </div>
                     <div class="input-group mt-3 mb-3">
-                        <span class="input-group-text" id="lblCatName">Tên thể loại</span>
-                        <input type="text" class="form-control" name="txtCatName" >
+                        <span class="input-group-text" id="lblCatName">Nội dung</span>
+                        <input type="text" class="form-control" name="I_noiDung" >
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="inputGroupSelect01">Tên tác giả</label>
+                        <select class="form-select" id="inputGroupSelect01" name = "I_tenTacGia">
+                            <option selected></option>
+                            <?php
+                                if($result_select_tgia->rowCount() > 0){
+                                    $i=0;
+                                    while($row = $result_select_tgia->fetch(PDO::FETCH_ASSOC)){
+                                    
+                            ?>
+                                <option value="<?php echo $row['ma_tgia'] ?>"><?php echo $row['ten_tgia'] ?></option>
+                            <?php       
+                                    }
+                                };
+                            ?>
+                        </select>
                     </div>
                     <div class="input-group mt-3 mb-3">
-                        <span class="input-group-text" id="lblCatName">Tên thể loại</span>
-                        <input type="text" class="form-control" name="txtCatName" >
+                        <span class="input-group-text" id="lblCatName">Ngày viết</span>
+                        <input type="text" class="form-control" name="I_ngayViet" >
+                    </div>
+                    <div class="input-group mt-3 mb-3">
+                        <span class="input-group-text" id="lblCatName">Hình ảnh</span>
+                        <input type="text" class="form-control" name="I_hinhAnh" >
                     </div>
                     <div class="form-group  float-end ">
                         <input type="submit" value="Thêm" class="btn btn-success">
@@ -80,7 +125,22 @@
         </div>
     </main>
     <?php
-        include('../include/footer.php');
+    //Xử lý thêm bài viết
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $I_tieuDe   = $_POST['I_tieuDe'];
+        $I_tenBaiHat   = $_POST['I_tenBaiHat'];
+        $I_maTheLoai = $_POST['I_tenTheLoai'];
+        $I_tomTat   = $_POST['I_tomTat'];
+        $I_noiDung   = $_POST['I_noiDung'];
+        $I_maTacGia = $_POST['I_tenTacGia'];
+        $I_ngayViet   = $_POST['I_ngayViet'];
+        $I_linkHinhAnh   = $_POST['I_hinhAnh'];
+    }
+    $sql_select = "select * from baiviet";
+    $result_select = pdo($pdo, $sql_select)->rowCount();
+    $sql_insert = "INSERT INTO baiviet(ma_bviet, tieude, ten_bhat, ma_tloai, tomtat, noidung, ma_tgia, ngayviet, hinhanh) VALUES (:ma_bviet,:tieude,:ten_bhat,:ma_tloai,:tomtat,:noidung,:ma_tgia,:ngayviet,:hinhanh)";
+    $result_insert = pdo($pdo, $sql_insert, [$result_select+1, 'tieude' => $I_tieuDe, 'ten_bhat' => $I_tenBaiHat,'ma_tloai' => $I_maTheLoai, 'tomtat' => $I_tomTat,'noidung' => $I_noiDung,'ma_tgia' => $I_maTacGia,'ngayviet' => $I_ngayViet,'hinhanh' => $I_linkHinhAnh]);
+    include('../include/footer.php');
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
