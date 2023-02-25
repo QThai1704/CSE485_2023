@@ -55,7 +55,7 @@
             <div class="row">
                 <div class="col-sm">
                     <h3 class="text-center text-uppercase fw-bold">Sửa thông tin thể loại</h3>
-                    <form action="process_article.php" method="post">
+                    <form action="edit_article.php" method="post">
                     <?php
                             if($result->rowCount() > 0){
                                 $row = $result->fetch();
@@ -85,6 +85,11 @@
                                 <span class="input-group-text" id="lblCatName">Ngày viết</span></span>
                                 <input type="text" class="form-control" name="ngayViet" value = "<?php echo $row['ngayviet'];?>">
                             </div>
+                            <form method="POST" action="upload-file.php" enctype="multipart/form-data">
+                                <label for="image"><b>Upload file:</b></label>
+                                <input type="file" name="image" accept="image/*" id="image"><br>
+                                <input type="submit" value="Upload">
+                            </form>
                             <div class="input-group mb-3">
                                 <input type="file" class="form-control" id="inputGroupFile02" name = "linkHinhAnh" value = "<?php echo $row['hinhanh'];?>">
                                 <label class="input-group-text" for="inputGroupFile02">Upload</label>
@@ -102,11 +107,21 @@
             </div>
     </main>
     <?php
-        include('../include/footer.php');
+        //Xử lý update cho bài viết
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $U_maBaiViet   = $_POST['maBaiViet'];
+            $U_tieuDe   = $_POST['tieuDe'];
+            $U_tenBaiHat   = $_POST['tenBaiHat'];
+            $U_tomTat   = $_POST['tomTat'];
+            $U_noiDung   = $_POST['noiDung'];
+            $U_ngayViet   = $_POST['ngayViet'];
+            $U_linkHinhAnh   = $_POST['linkHinhAnh'];
+        }
+        var_dump($_POST);
+        // $id_bviet = $_GET['id'];
+        // $sql_update = "Update baiviet set ma_bviet = '.$id_bviet.',tieude = '$tieuDe', ten_bhat = '$tenBaiHat', tomtat = '$tomTat', noidung = '$noiDung', ngayViet = '$ngayViet', hinhanh = '$linkHinhAnh' where ma_bviet ='.$id_bviet.';";
+        // $result = pdo($pdo, $sql_update);
     ?>
-    <script>
-
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
 </html>
