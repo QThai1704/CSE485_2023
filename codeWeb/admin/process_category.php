@@ -15,10 +15,9 @@
     }
     else{
     if($tloai['txtCatName'] == ''){
-            echo "<script>alert('Vui lòng nhập đầy đủ thông tin');</script>";
-            echo "<script>window.location = 'add_category.php'</script>";
-        }
-        
+        echo "<script>alert('Vui lòng nhập đầy đủ thông tin');</script>";
+        echo "<script>window.location = 'add_category.php'</script>";
+    }
     $sql_select = "SELECT * FROM theloai";
     $count = pdo($pdo,$sql_select)->rowCount();
     $sql_insert = "INSERT INTO theloai VALUE (:result_count,:txtCatName)"; 
