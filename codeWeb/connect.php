@@ -1,5 +1,8 @@
  <?php
-
+        // $connect = mysqli_connect("localhost:3307","root","","btth01_cse485");
+        // if(!$connect){
+        //     die("Kết nối thất bại");
+        // }
 ?> 
 
 <?php

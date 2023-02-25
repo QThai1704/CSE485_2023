@@ -52,7 +52,6 @@
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="lblCatName">Tên thể loại</span>
                         <input type="text" class="form-control" name="txtCatName" >
-
                     </div>
 
                     <div class="form-group  float-end ">
