@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="css/style_login.css">
 </head>
 <body>
+    <?php
+        include('../connect.php');
+    ?>
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary shadow p-3 bg-white rounded">
             <div class="container-fluid">
@@ -57,26 +60,50 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Nhạc trữ tình</td>
-                            <td>
-                                <a href="edit_category.php?id=1"><i class="fa-solid fa-pen-to-square"></i></a>
-                            </td>
-                            <td>
-                                <a href=""><i class="fa-solid fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Nhạc cách mạng</td>
-                            <td>
-                                <a href="edit_category.php?id=2"><i class="fa-solid fa-pen-to-square"></i></a>
-                            </td>
-                            <td>
-                                <a href=""><i class="fa-solid fa-trash"></i></a>
-                            </td>
-                        </tr>
+                        <?php
+                            $sql = "SELECT * FROM theloai;";
+                            $result = pdo($pdo, $sql);
+                            $count = 0;
+                            if($result->rowCount() >0){
+                                while($row = $result->fetch(PDO::FETCH_ASSOC)){
+                                    $count++;
+                                    ?>
+                                    <tr>
+                                    <th scope="row"><?=$count?></th>
+                                    <td><?= $row['ten_tloai'] ?></td>
+                                    <td>
+                                        <a href="edit_category.php?id=<?= $row['ma_tloai'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    </td>
+                                    <td>
+                                        <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn" >
+                                            <a href="?id=<?= $row['ma_tloai'] ?>" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-solid fa-trash"></i>  </a> 
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Bạn có chắc muốn xoá không?</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
+                                            <button type="button" class="btn btn-primary">Có</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                        
+                                    </td>
+                                </tr> <?php
+                                }
+                            }
+                        ?>
+            
+                       
                        
                     </tbody>
                 </table>

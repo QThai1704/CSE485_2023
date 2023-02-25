@@ -1,3 +1,11 @@
+<?php
+
+ include('../connect.php');
+$id = filter_input(INPUT_GET,'id',FILTER_VALIDATE_INT);
+
+$sql = "SELECT ten_tloai FROM theloai WHERE ma_tloai=:id";
+$result = pdo($pdo,$sql, ['id' => $id])->fetch();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +18,7 @@
     <link rel="stylesheet" href="css/style_login.css">
 </head>
 <body>
+   
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary shadow p-3 bg-white rounded">
             <div class="container-fluid">
@@ -44,18 +53,20 @@
     </header>
     <main class="container mt-5 mb-5">
         <!-- <h3 class="text-center text-uppercase mb-3 text-primary">CẢM NHẬN VỀ BÀI HÁT</h3> -->
+
+      
         <div class="row">
             <div class="col-sm">
                 <h3 class="text-center text-uppercase fw-bold">Sửa thông tin thể loại</h3>
-                <form action="process_add_category.php" method="post">
+                <form action="process_category.php" method="post">
                 <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="lblCatId">Mã thể loại</span>
-                        <input type="text" class="form-control" name="txtCatId" readonly value="1">
+                        <input type="text" class="form-control" name="txtCatId" readonly value="<?= $id?>">
                     </div>
 
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="lblCatName">Tên thể loại</span>
-                        <input type="text" class="form-control" name="txtCatName" value = "Nhạc trữ tình">
+                        <input type="text" class="form-control" name="txtCatName" value = "<?= $result['ten_tloai'] ?>">
                     </div>
 
                     <div class="form-group  float-end ">
