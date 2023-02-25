@@ -1,14 +1,7 @@
- <?php
-        // $connect = mysqli_connect("localhost:3307","root","","btth01_cse485");
-        // if(!$connect){
-        //     die("Kết nối thất bại");
-        // }
-?> 
-
 <?php
 $type     = 'mysql';                 // Type of database
 $server   = 'localhost';             // Server the database is on
-$db       = 'btth01_cse485';             // Name of the database
+$db       = 'test';             // Name of the database
 $port     = '3306';                      // Port is usually 8889 in MAMP and 3306 in XAMPP
 $charset  = 'utf8mb4';               // UTF-8 encoding using 4 bytes of data per character
 
