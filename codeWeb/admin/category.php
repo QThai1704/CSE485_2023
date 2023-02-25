@@ -1,3 +1,8 @@
+<?php
+    include('../connect.php');
+
+// ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +15,7 @@
     <link rel="stylesheet" href="css/style_login.css">
 </head>
 <body>
+
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary shadow p-3 bg-white rounded">
             <div class="container-fluid">
@@ -57,27 +63,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Nhạc trữ tình</td>
-                            <td>
-                                <a href="edit_category.php?id=1"><i class="fa-solid fa-pen-to-square"></i></a>
-                            </td>
-                            <td>
-                                <a href=""><i class="fa-solid fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Nhạc cách mạng</td>
-                            <td>
-                                <a href="edit_category.php?id=2"><i class="fa-solid fa-pen-to-square"></i></a>
-                            </td>
-                            <td>
-                                <a href=""><i class="fa-solid fa-trash"></i></a>
-                            </td>
-                        </tr>
-                       
+                        <?php
+                            $sql = "SELECT * FROM theloai;";
+                            $result = pdo($pdo, $sql);
+                            $count = 0;
+                            if($result->rowCount() >0){
+                                while($row = $result->fetch(PDO::FETCH_ASSOC)){
+                                    $count++;
+                                    ?>
+                                    <tr>
+                                    <th scope="row"><?=$count?></th>
+                                    <td><?= $row['ten_tloai'] ?></td>
+                                    <td>
+                                        <a href="edit_category.php?id=<?= $row['ma_tloai'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    </td>
+                                    <td>
+                                    <a href="process_category_delete.php?id=<?php echo $row['ma_tloai'] ?>" onclick="return confirm('Bạn có muốn xóa thể loại không?')">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr> <?php
+                                }
+                            }
+                        ?>
+
                     </tbody>
                 </table>
             </div>
