@@ -1,3 +1,11 @@
+<?php
+require '/xampp/htdocs/CSE485_2023/codeWeb/connect.php';
+$id = filter_input(INPUT_GET,'id',FILTER_VALIDATE_INT);
+
+$sql = "SELECT ten_tgia FROM tacgia WHERE ma_tgia=:id";
+$result = pdo($pdo,$sql, ['id' => $id])->fetch();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,20 +57,20 @@
         <div class="row">
             <div class="col-sm">
                 <h3 class="text-center text-uppercase fw-bold">Sửa thông tin Tác Giả</h3>
-                <form action="process_add_category.php" method="post">
+                <form action="edit_author.php" method="post" >
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="lblCatId">Mã tác giả</span>
-                        <input type="text" class="form-control" name="txtCatId">
+                        <input type="text" class="form-control" name="txtCatId" readonly value="<?php echo $id?>">
                     </div>
 
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="lblCatName">Tên tác giả</span>
-                        <input type="text" class="form-control" name="txtCatName" >
+                        <input type="text" class="form-control" name="txtCatName" value="<?php echo $result['ten_tgia'] ?>">
                     </div>
-                    <form action="upload.php" method="post" enctype="multipart/form-data">
+                    <!-- <form action="upload.php" method="post" enctype="multipart/form-data">
                         <input type="file" name="image">
                         <input type="submit" value="Upload">
-                    </form>
+                    </form> -->
 
                     <div class="form-group  float-end ">
                         <input type="submit" value="Lưu lại" class="btn btn-success">
@@ -71,6 +79,15 @@
                 </form>
             </div>
         </div>
+
+        <?php 
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $txtCatId = $_POST["txtCatId"];
+            $txtCatName = $_POST["txtCatName"];
+            $sql = "Update tacgia SET ten_tgia = :txtCatName where ma_tgia = :id";
+            $stmt = pdo($pdo, $sql, ['id' => $txtCatId,'txtCatName' => $txtCatName ]);
+        }
+        ?>
     </main>
     <footer class="bg-white d-flex justify-content-center align-items-center border-top border-secondary  border-2" style="height:80px">
         <h4 class="text-center text-uppercase fw-bold">TLU's music garden</h4>

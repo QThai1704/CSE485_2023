@@ -71,15 +71,13 @@ require '/xampp/htdocs/CSE485_2023/codeWeb/connect.php';
                         $result = pdo($pdo, $sql,);
                         if ($result->rowCount() > 0) {
                             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-
-
                         ?>
                                 <tr>
                                     <th scope="row"><?php echo $row['ma_tgia'] ?></th>
                                     <td><?php echo $row['ten_tgia'] ?></td>
                                     <td><?php echo $row['hinh_tgia'] ?></td>
                                     <td>
-                                        <a href="edit_author.php?id=1"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a href="edit_author.php?id=<?php echo $row['ma_tgia'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
                                     </td>
                                     <td>
                                         <a href=""><i class="fa-solid fa-trash"></i></a>
