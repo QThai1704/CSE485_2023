@@ -11,6 +11,23 @@
 <body>
     <?php
         include('connect.php');
+        require 'session.php';
+
+
+//         session_start();
+
+//         $is_logged_in = isset($_SESSION['user_id']);
+
+//         if (isset($_POST['logout'])) {
+//         // Xóa thông tin đăng nhập khỏi session
+//         session_unset();
+//         session_destroy();
+
+//         // Chuyển hướng người dùng đến trang đăng nhập
+//         header('Location: login.php');
+//         exit;
+// }
+
     ?>
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary shadow p-3 bg-white rounded">
@@ -28,9 +45,17 @@
                     <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="./">Trang chủ</a>
                     </li>
+                    <?php if ($is_logged_in) : ?>
+                        <form method="post">
                     <li class="nav-item">
+                   <button type="submit" name="logout">Đăng xuất</button>
+                    </li>
+                    </form>
+                    <?php else : ?>
+                         <li class="nav-item">
                     <a class="nav-link" href="./login.php">Đăng nhập</a>
                     </li>
+                        <?php endif; ?>
                 </ul>
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Nội dung cần tìm" aria-label="Search">
