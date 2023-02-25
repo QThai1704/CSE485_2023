@@ -1,3 +1,8 @@
+<?php
+    include('../connect.php');
+
+// ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,9 +15,7 @@
     <link rel="stylesheet" href="css/style_login.css">
 </head>
 <body>
-    <?php
-        include('../connect.php');
-    ?>
+
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary shadow p-3 bg-white rounded">
             <div class="container-fluid">
@@ -75,36 +78,15 @@
                                         <a href="edit_category.php?id=<?= $row['ma_tloai'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
                                     </td>
                                     <td>
-                                        <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn" >
-                                            <a href="?id=<?= $row['ma_tloai'] ?>" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-solid fa-trash"></i>  </a> 
-                                    </button>
-
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="staticBackdropLabel">Bạn có chắc muốn xoá không?</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
-                                            <button type="button" class="btn btn-primary">Có</button>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    </div>
-                                        
+                                    <a href="process_category_delete.php?id=<?php echo $row['ma_tloai'] ?>" onclick="return confirm('Bạn có muốn xóa thể loại không?')">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </a>
                                     </td>
                                 </tr> <?php
                                 }
                             }
                         ?>
-            
-                       
-                       
+
                     </tbody>
                 </table>
             </div>
