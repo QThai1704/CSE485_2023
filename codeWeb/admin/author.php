@@ -80,7 +80,7 @@ require '/xampp/htdocs/CSE485_2023/codeWeb/connect.php';
                                         <a href="edit_author.php?id=<?php echo $row['ma_tgia'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
                                     </td>
                                     <td>
-                                        <a href=""><i class="fa-solid fa-trash"></i></a>
+                                        <a href="remove_author.php?id=<?php echo $row['ma_tgia']?>"onclick="return confirm('Bạn có muốn xóa tác giả không?')"><i class="fa-solid fa-trash"></i></a>
                                     </td>
                                 </tr>
                         <?php
