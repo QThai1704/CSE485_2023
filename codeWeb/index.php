@@ -71,14 +71,13 @@
         <h3 class="text-center text-uppercase mb-3 text-primary">TOP bài hát yêu thích</h3>
         <div class="row">
             <?php 
-               //  $city    = $_GET['city'];
+             
                  $sql = "select * from baiviet";
-                // $result = $pdo->query($sql);
+             
                  $result = pdo($pdo, $sql);
-                // $result->setFetchMode(PDO::FETCH_OBJ); 
-                 //$stsm = $result->fetch();
+             
                     echo '<pre>';
-                   // print_r($stsm);
+                
                     echo '</pre>';
                  if($result->rowCount() > 0) {
                     while( $row = $result->fetch(PDO::FETCH_ASSOC)){
