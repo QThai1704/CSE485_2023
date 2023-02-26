@@ -132,19 +132,7 @@
                                                     echo '<META HTTP-EQUIV="refresh" CONTENT="0;URL=http://localhost/cse485_2023/codeWeb/admin/index.php">';     
                                                 }
                                                 else if($users['access'] == "user"){
-                                                    try{
-                                                        
-                             
-                                                     //   $_SESSION['user_id'] = 1;
-                                                       echo '<META HTTP-EQUIV="refresh" CONTENT="0;URL=http://localhost/cse485_2023/codeWeb/index.php?user_id="'.$_SESSION['user_id'].'>'; 
-
-                                                    }
-                                                    catch(exception $e ){
-                                                    echo $e.getMessage();
-                                                    }
-                                                    
-                                                      
-                                                    
+                                                       echo '<META HTTP-EQUIV="refresh" CONTENT="0;URL=http://localhost/cse485_2023/codeWeb/index.php">'; 
                                                 }
                                                 
                                             }
