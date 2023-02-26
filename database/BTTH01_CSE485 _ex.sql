@@ -79,6 +79,14 @@ CALL sp_DSBaiViet('Rock')
 
 
 #k
+ALTER TABLE theloai ADD SLBaiViet INT DEFAULT 0;
+UPDATE theloai 
+SET SLBaiViet = (
+  SELECT COUNT(*) FROM baiviet 
+  WHERE baiviet.ma_tloai = theloai.ma_tloai
+  GROUP BY baiviet.ma_tloai
+);
+
 DELIMITER //
 CREATE TRIGGER tg_CapNhatTheLoai AFTER INSERT ON baiviet FOR EACH ROW
 BEGIN

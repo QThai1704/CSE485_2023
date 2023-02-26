@@ -52,28 +52,100 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form action="login.php" method="POST">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="txtUser"><i class="fas fa-user"></i></span>
-                                <input type="text" class="form-control" placeholder="username" >
+                                <input type="text" class="form-control" name="username" placeholder="username" >
+                                
                             </div>
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="txtPass"><i class="fas fa-key"></i></span>
-                                <input type="text" class="form-control" placeholder="password" >
+                                <input type="text" class="form-control" name="password" placeholder="password" >
                             </div>
                             
                             <div class="row align-items-center remember">
-                                <input type="checkbox">Remember Me
+                                <input type="checkbox" name="terms">Remember Me
                             </div>
                             <div class="form-group">
-                                <input type="submit" value="Login" class="btn float-end login_btn">
+                                <input href="" type="submit" value="Login" class="btn float-end login_btn">
                             </div>
                         </form>
+                        <?php
+                   
+
+                        // Kiểm tra nếu người dùng đã đăng nhập thì chuyển hướng người dùng đến trang chính
+                        
+                                $user = [
+                                    'name'  => '',
+                                    'password'   => '',
+                                    'terms' => '',
+                                ];                                                           
+                                $errors = [
+                                    'name'  => '',
+                                    'password'   => '',
+                                    'terms' => '',
+                                ];                                                            
+
+                                if ($_SERVER['REQUEST_METHOD'] == 'POST') {  
+                                    include('connect.php');
+                                    require 'include/validate.php';                  
+                                    $user['name']  = $_POST['username'];                         
+                                    $user['password']   = $_POST['password'];                           
+                                    $user['terms'] = (isset($_POST['terms']) and $_POST['terms'] == true) ? true : false;
+
+                                    
+                                    $errors['name']  = is_username($user['name'], 5, 15) ? '' : "1";
+                                    $errors['password']   = is_password($user['password']) ? '': "1";
+                                   // $errors['terms'] = $user['terms']                  ? '' : 'You must agree to the terms
+                                    //    and conditions';                                      // Validate data
+
+                                    $invalid = implode($errors);                             
+                                    if ($invalid) {                                           
+                                        echo $message = 'Please correct the following errors:'; 
+                                        if ($user['name'] == "") {
+                                            echo "<p style='color: red;'>Username không được để trống</p>";
+                                        } else if (!$errors['name'] = is_username($user['name'], 5, 15)) {
+                                            // Username không đúng độ dài, hiển thị thông báo lỗi
+                                            echo "<p style='color: red;'>Username phải có độ dài từ 5 đến 15 ký tự</p>";
+                                        }  
+                                        else if( ! $errors['password']  = is_password($user['password'])){
+                                            echo "<p style='color: red;'>Password phải có độ dài từ 8 đến 16 ký tự,có ít nhất 1 ký tự hoa ,số và không chứa ký tự đặc biệt</p>";
+                                        }
+                                    } else {                                             
+                                       
+                                        $sql = "select * from users where username = :username";
+                                        $result = pdo ($pdo, $sql, ['username'=>$user['name']]);
+                                        $users = $result->fetch();
+                                   
+                                        if (!$user ) {
+                                                // Tài khoản không tồn tại, hiển thị thông báo lỗi
+                                                echo "<p style='color: red;'>Tài khoản không tồn tại</p>";
+                                            
+                                            } else if ($users['pass_word'] != $user['password']) {
+                                                // Mật khẩu không đúng, hiển thị thông báo lỗi
+                                                echo "<p style='color: red;'>Mật khẩu không đúng</p>";
+                                            } else {
+                                                // Đăng nhập thành công, chuyển hướng đến trang chính
+                                                if($users['access'] == "admin"){
+                                                    //header('Location: login.php');
+                                                    echo '<META HTTP-EQUIV="refresh" CONTENT="0;URL=http://localhost/cse485_2023/codeWeb/admin/index.php">';     
+                                                }
+                                                else if($users['access'] == "user"){
+                                                       echo '<META HTTP-EQUIV="refresh" CONTENT="0;URL=http://localhost/cse485_2023/codeWeb/index.php">'; 
+                                                }
+                                                
+                                            }
+                                                exit();
+                                            }
+                                    }
+                            
+                            ?>
+                            
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-center ">
-                            Don't have an account?<a href="#" class="text-warning text-decoration-none">Sign Up</a>
+                            Don't have an account?<a href="signup.php" class="text-warning text-decoration-none">Sign Up</a>
                         </div>
                         <div class="d-flex justify-content-center">
                             <a href="#" class="text-warning text-decoration-none">Forgot your password?</a>

@@ -28,9 +28,10 @@
                     <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="./">Trang chủ</a>
                     </li>
-                    <li class="nav-item">
+                         <li class="nav-item">
                     <a class="nav-link" href="./login.php">Đăng nhập</a>
                     </li>
+                        
                 </ul>
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Nội dung cần tìm" aria-label="Search">
@@ -71,14 +72,13 @@
         <h3 class="text-center text-uppercase mb-3 text-primary">TOP bài hát yêu thích</h3>
         <div class="row">
             <?php 
-               //  $city    = $_GET['city'];
+             
                  $sql = "select * from baiviet";
-                // $result = $pdo->query($sql);
+             
                  $result = pdo($pdo, $sql);
-                // $result->setFetchMode(PDO::FETCH_OBJ); 
-                 //$stsm = $result->fetch();
+             
                     echo '<pre>';
-                   // print_r($stsm);
+                
                     echo '</pre>';
                  if($result->rowCount() > 0) {
                     while( $row = $result->fetch(PDO::FETCH_ASSOC)){
