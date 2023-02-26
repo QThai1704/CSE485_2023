@@ -116,7 +116,7 @@
                         <span class="input-group-text" id="lblCatName">Hình ảnh</span>
                         <input type="text" class="form-control" name="I_hinhAnh" >
                     </div>
-                    <div class="form-group  float-end ">
+                    <div class="form-group float-end ">
                         <input type="submit" value="Thêm" class="btn btn-success">
                         <a href="article.php" class="btn btn-warning ">Quay lại</a>
                     </div>

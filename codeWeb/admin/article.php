@@ -74,21 +74,23 @@
                             if($result->rowCount() > 0){
                             while($row = $result->fetch(PDO::FETCH_ASSOC)){
                         ?>
-                        <tr>
-                            <th scope="row"><?php echo $row['ma_bviet'] ?></th>
-                            <td><?php echo $row['tieude'] ?></td>
-                            <td><?php echo $row['ten_bhat'] ?></td>
-                            <td><?php echo $row['tomtat'] ?></td>
-                            <td><?php echo $row['noidung'] ?></td>
-                            <td><?php echo $row['ngayviet'] ?></td>
-                            <td><img src="../<?php echo $row['hinhanh']?>" alt="" style = "width: 100px; height: 70px;"></td>
-                            <td>
-                                <a href="edit_article.php?id=<?php echo $row['ma_bviet'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
-                            </td>
-                            <td>
-                                <a href=""><i class="fa-solid fa-trash"></i></a>
-                            </td>
-                        </tr>
+                        <form action="article.php" method = "POST"></form>
+                            <tr>
+                                <th scope="row" name="D_ma_bviet"><?php echo $row['ma_bviet'] ?></th>
+                                <td name="D_tieude"><?php echo $row['tieude'] ?></td>
+                                <td name="D_ten_bhat"><?php echo $row['ten_bhat'] ?></td>
+                                <td name="D_tomtat"><?php echo $row['tomtat'] ?></td>
+                                <td name="D_noidung"><?php echo $row['noidung'] ?></td>
+                                <td name="D_ngayviet"><?php echo $row['ngayviet'] ?></td>
+                                <td><img src="../<?php echo $row['hinhanh']?>" alt="" style = "width: 100px; height: 70px;" name="D_hinhanh"></td>
+                                <td>
+                                    <a href="edit_article.php?id=<?php echo $row['ma_bviet'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                                </td>
+                                <td>
+                                    <a href="article.php?id=<?php echo $row['ma_bviet'] ?>"><i class="fa-solid fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        </form>
                         <?php
                                 }
                             };
@@ -98,7 +100,14 @@
             </div>
         </div>
     </main>
+
+
     <?php
+        $D_ma_bviet = $_GET['id'];
+        $sql_delete = "DELETE FROM baiviet WHERE ma_bviet = :id";
+        $result_delete = pdo($pdo, $sql_delete, ['id' => $D_ma_bviet]);
+        $sql = "Select ma_bviet, tieude, ten_bhat, tomtat, noidung, ngayviet, hinhanh from baiviet";
+        $result = pdo($pdo, $sql);
         include('../include/footer.php');
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
