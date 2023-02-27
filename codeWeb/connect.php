@@ -7,7 +7,6 @@ $charset  = 'utf8mb4';               // UTF-8 encoding using 4 bytes of data per
 
 $username = 'root';         // Enter YOUR username here
 $password = '';         // Enter YOUR password here
-
 $options  = [                        // Options for how PDO works
     //điều này sẽ cho phép PDO ném ra ngoại lệ (exception) khi có lỗi xảy ra, thay vì trả về giá trị false như mặc định.
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, 
