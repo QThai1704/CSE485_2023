@@ -34,13 +34,16 @@
                         <a class="nav-link" href="../index.php">Trang ngoài</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active fw-bold" href="category.php">Thể loại</a>
+                        <a class="nav-link " href="category.php">Thể loại</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="author.php">Tác giả</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="article.php">Bài viết</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active fw-bold" href="user.php">Người dùng</a>
                     </li>
                 </ul>
                 </div>
@@ -52,7 +55,7 @@
         <!-- <h3 class="text-center text-uppercase mb-3 text-primary">CẢM NHẬN VỀ BÀI HÁT</h3> -->
         <div class="row">
             <div class="col-sm">
-                <a href="add_category.php" class="btn btn-success">Thêm mới</a>
+                <a href="add_user.php" class="btn btn-success">Thêm mới</a>
                 <table class="table">
                     <thead>
                         <tr>
@@ -86,7 +89,7 @@
                                         <a href="edit_user.php?id=<?= $row['username'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
                                     </td>
                                     <td>
-                                    <a href="process_user.php?id=<?php echo $row['username'] ?>" onclick="return confirm('Bạn có muốn xóa thể loại không?')">
+                                    <a href="delete_user.php?id=<?php echo $row['username'] ?>" onclick="return confirm('Bạn có muốn xóa người dùng này không?')">
                                             <i class="fa-solid fa-trash"></i>
                                         </a>
                                     </td>
