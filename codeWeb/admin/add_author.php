@@ -49,7 +49,6 @@ require '/xampp/htdocs/CSE485_2023/codeWeb/connect.php';
     </header>
     <main class="container mt-5 mb-5">
 
-        <!-- <h3 class="text-center text-uppercase mb-3 text-primary">CẢM NHẬN VỀ BÀI HÁT</h3> -->
         <div class="row">
             <div class="col-sm">
                 <h3 class="text-center text-uppercase fw-bold">Thêm mới tác giả</h3>
@@ -63,11 +62,6 @@ require '/xampp/htdocs/CSE485_2023/codeWeb/connect.php';
                         <input type="text" class="form-control" name="txtCatName">
                     </div>
 
-                    <!-- <form action="upload.php" method="POST" enctype="multipart/form-data">
-                        <h6>Ảnh tác giả</h6>
-                        <input type="file" name="image">
-                        <input type="submit" value="Upload">
-                    </form> -->
                     <div class="form-group  float-end ">
 
                         <input type="submit" value="Thêm" class="btn btn-success">
@@ -78,12 +72,16 @@ require '/xampp/htdocs/CSE485_2023/codeWeb/connect.php';
             </div>
         </div>
         <?php
-        // Lấy giá trị từ form
+        
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $txtCatId = $_POST["txtCatId"];
             $txtCatName = $_POST["txtCatName"];
             $sql = "INSERT INTO tacgia (ma_tgia, ten_tgia) VALUES (:cardid, :cardname)";
             $stmt = pdo($pdo, $sql, ['cardid' => $txtCatId, 'cardname' => $txtCatName]);
+            if($stmt){
+                echo "<script>alert('Thêm tác giả thành công');</script>";
+                echo "<script>window.location = 'author.php'</script>";
+            }
         }
         ?>
     </main>
