@@ -130,13 +130,30 @@
                                 } else {
                                 // Kiểm tra tài khoản có tồn tại trong cơ sở dữ liệu hay không
                                 try {
-                                    $sql = "insert into users(username, pass_word, fullname, age) values (:username ,:password , :fullname ,:age)";
-                                    $result = pdo ($pdo, $sql, ['username'=>$usernameT , 'password'=>$passwordT, 'fullname'=>$fullname, 'age'=>$age]);
-                                    echo '<META HTTP-EQUIV="refresh" CONTENT="0;URL=http://localhost/cse485_2023/codeWeb/login.php">';  
-                                    }
-                                    catch(exception $e){
+                                    $sql_1 = "select * from users";
+                                    $result_1 = pdo ($pdo,$sql_1);
+
+                                    $count = 0;
+                                    while($r = $result_1->fetch(PDO::FETCH_ASSOC)){
+                                           if( $usernameT == $r['username'] )
+                                                $count++;
+                                        }
+                                    
+                                    if($count ==0 ){
+                                        $sql = "insert into users(username, pass_word, fullname, age) values (:username ,:password , :fullname ,:age)";
+                                        $result = pdo ($pdo, $sql, ['username'=>$usernameT , 'password'=>$passwordT, 'fullname'=>$fullname, 'age'=>$age]);
+                                        echo '<META HTTP-EQUIV="refresh" CONTENT="0;URL=http://localhost/cse485_2023/codeWeb/login.php">';  
+                                        }
+                                        
+                                        else{
+                                            echo "<p style='color: red;'>Tên tài khoản đã tồn tại</p>";
+                                        }
+                                    }catch(exception $e){
                                         echo $e->getMessage();
                                     }
+
+
+                                    
                                     
                                 
                                  }
