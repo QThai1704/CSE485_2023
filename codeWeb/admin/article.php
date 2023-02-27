@@ -77,7 +77,7 @@
                             if($result->rowCount() > 0){
                             while($row = $result->fetch(PDO::FETCH_ASSOC)){
                         ?>
-                        <form action="article.php" method = "POST"></form>
+                        <form action="article.php?id=<?php echo $row['ma_bviet']?>" method = "POST"></form>
                             <tr>
                                 <th scope="row" name="D_ma_bviet"><?php echo $row['ma_bviet'] ?></th>
                                 <td name="D_tieude"><?php echo $row['tieude'] ?></td>
@@ -90,7 +90,7 @@
                                     <a href="edit_article.php?id=<?php echo $row['ma_bviet'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
                                 </td>
                                 <td>
-                                    <a href="article.php?id=<?php echo $row['ma_bviet'] ?>"><i class="fa-solid fa-trash"></i></a>
+                                    <a href="process_delete_article.php?id=<?php echo $row['ma_bviet']?>"><i class="fa-solid fa-trash"></i></a>
                                 </td>
                             </tr>
                         </form>
@@ -104,12 +104,6 @@
         </div>
     </main>
     <?php
-    //Xóa bài viết
-        $D_ma_bviet = $_GET['id'];
-        $sql_delete = "DELETE FROM baiviet WHERE ma_bviet = :id";
-        $result_delete = pdo($pdo, $sql_delete, ['id' => $D_ma_bviet]);
-        $sql = "Select ma_bviet, tieude, ten_bhat, tomtat, noidung, ngayviet, hinhanh from baiviet";
-        $result = pdo($pdo, $sql);
         include('../include/footer.php');
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
