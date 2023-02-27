@@ -64,7 +64,7 @@
                     </thead>
                     <tbody>
                         <?php
-                            $sql = "SELECT * FROM theloai;";
+                            $sql = "SELECT * FROM theloai LIMIT 999 OFFSET 1;";
                             $result = pdo($pdo, $sql);
                             $count = 0;
                             if($result->rowCount() >0){
