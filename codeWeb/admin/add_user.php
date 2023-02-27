@@ -11,12 +11,7 @@
     <link rel="stylesheet" href="css/style_login.css">
 </head>
 <body>
-<?php
-    include ('../connect.php');
-        $username = $_GET['id'];
-        $sql_edit = "Select * from users where username = :username;";
-        $result_e = pdo($pdo, $sql_edit, ['username'=>$username]);
-    ?>
+
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary shadow p-3 bg-white rounded">
             <div class="container-fluid">
@@ -56,34 +51,30 @@
         <!-- <h3 class="text-center text-uppercase mb-3 text-primary">CẢM NHẬN VỀ BÀI HÁT</h3> -->
         <div class="row">
             <div class="col-sm">
-                <h3 class="text-center text-uppercase fw-bold">Sủa thông tin người dùng</h3>
-                <?php
-                        if($result_e->rowCount() > 0){
-                            $row = $result_e->fetch(PDO::FETCH_ASSOC);
-                    ?>
-                <form action="edit_user.php?id=<?php echo  $row['username']; ?>" method="post">
+                <h3 class="text-center text-uppercase fw-bold">Thêm mới người dùng</h3>
+                <form action="" method="post">
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="">Tên người dùng</span>
-                        <input type="text" class="form-control" name="username" value="<?php echo  $row['username'];?>" >
+                        <input type="text" class="form-control" name="username" >
                     </div>
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="">Mật khẩu</span>
-                        <input type="text" class="form-control" name="password" value="<?php echo  $row['pass_word'];?>">
+                        <input type="text" class="form-control" name="password" >
                     </div>
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="">Tên đầy đủ</span>
-                        <input type="text" class="form-control" name="fullname" value="<?php echo $row['fullname'];?>" >
+                        <input type="text" class="form-control" name="fullname" >
                     </div>
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="">Tuổi</span>
-                        <input type="text" class="form-control" name="age" value="<?php  echo  $row['age'];?> ">
+                        <input type="text" class="form-control" name="age" >
                     </div>
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text">Quyền</span>
-                         <select class="form-select" name="access" value="<?php  echo  $row['access'];?> ">
-                            <option value="<?php  echo  $row['access'];?>"><?php  echo  $row['access'];?></option>
-                            <option value="admin">admin</option>
-                            <option value="user">user</option>
+                        <select class="form-select" name="access">
+                            <option selected disabled>Chọn quyền</option>
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
                         </select>
                     </div>
 
@@ -93,16 +84,13 @@
                         <a href="category.php" class="btn btn-warning ">Quay lại</a>
                     </div>
                 </form>
-                <?php
-                        }
-                        ?>
             </div>
         </div>
     </main>
 
     <?php
                                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                               // include('../connect.php');
+                                include('../connect.php');
                                 require '../include/validate.php';
                                 $usernameT = $_POST['username'] ; 
                                 $passwordT = $_POST['password'];
@@ -142,11 +130,25 @@
                                 } else {
                                 // Kiểm tra tài khoản có tồn tại trong cơ sở dữ liệu hay không
                                 try {
-                                        $sql_eu = "update users set username = :username , pass_word = :password, fullname = :fullname, age = :age , access = :access where username = :usernam";
-                                        $result_eu = pdo ($pdo , $sql_eu, ['username'=>$usernameT, 'password'=>$passwordT, 'fullname'=>$fullname, 'age'=>$age, 'access'=>$access, 'usernam'=>$username]);
-                                        echo '<script> alert("Cập nhật thành công!") </script>';
-                                        echo '<script> window.location = "user.php" </script>';
+                                    $sql_1 = "select * from users";
+                                    $result_1 = pdo ($pdo,$sql_1);
+
+                                    $count = 0;
+                                    while($r = $result_1->fetch(PDO::FETCH_ASSOC)){
+                                           if( $usernameT == $r['username'] )
+                                                $count++;
+                                        }
+                                    
+                                    if($count ==0 ){
+                                        $sql = "insert into users(username, pass_word, fullname, age, access) values (:username ,:password , :fullname ,:age, :access)";
+                                        $result = pdo ($pdo, $sql, ['username'=>$usernameT , 'password'=>$passwordT, 'fullname'=>$fullname, 'age'=>$age, 'access'=>$access]);
+                                       echo '<script> window.location = "user.php" </script>';
                                        // echo '<META HTTP-EQUIV="refresh" CONTENT="0;URL=http://localhost/cse485_2023/codeWeb/login.php">';  
+                                        }
+                                        
+                                        else{
+                                            echo "<p style='color: red;'>Tên tài khoản đã tồn tại</p>";
+                                        }
                                     }catch(exception $e){
                                         echo $e->getMessage();
                                     }

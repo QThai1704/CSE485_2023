@@ -84,7 +84,7 @@
                                 <input type="checkbox">Remember Me
                             </div> -->
                             <div class="form-group">
-                                <input href="" type="submit" value="Login" class="btn float-end login_btn">
+                                <input href="" type="submit" value="Sign Up" class="btn float-end login_btn">
                             </div>
                         </form>
                         <?php
@@ -151,11 +151,6 @@
                                     }catch(exception $e){
                                         echo $e->getMessage();
                                     }
-
-
-                                    
-                                    
-                                
                                  }
                                 }
                             ?>

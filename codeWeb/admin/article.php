@@ -41,6 +41,9 @@
                     <li class="nav-item active fw-bold">
                         <a class="nav-link" href="article.php">Bài viết</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="user.php">Người dùng</a>
+                    </li>
                 </ul>
                 </div>
             </div>
