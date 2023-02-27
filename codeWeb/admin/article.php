@@ -100,9 +100,8 @@
             </div>
         </div>
     </main>
-
-
     <?php
+    //Xóa bài viết
         $D_ma_bviet = $_GET['id'];
         $sql_delete = "DELETE FROM baiviet WHERE ma_bviet = :id";
         $result_delete = pdo($pdo, $sql_delete, ['id' => $D_ma_bviet]);

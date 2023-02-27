@@ -56,53 +56,52 @@
                 <div class="col-sm">
                     <h3 class="text-center text-uppercase fw-bold">Sửa thông tin thể loại</h3>
                     <?php
-                            if($result->rowCount() > 0){
-                                $row = $result->fetch(PDO::FETCH_ASSOC);
+                        if($result->rowCount() > 0){
+                            $row = $result->fetch(PDO::FETCH_ASSOC);
                     ?>
-                    <form action="edit_article.php" method="POST">
-                            <div class="input-group mt-3 mb-3">
-                                <span class="input-group-text" id="lblCatId">Mã bài viết</span>
-                                <input type="text" class="form-control" name="maBaiViet" readonly value = "<?php echo $row['ma_bviet'];?>">
-                            </div>
-
-                            <div class="input-group mt-3 mb-3">
-                                <span class="input-group-text" id="lblCatName">Tiêu đề</span>
-                                <input type="text" class="form-control" name="tieuDe" value = "<?php echo $row['tieude'];?>">
-                            </div>
-                            <div class="input-group mt-3 mb-3">
-                                <span class="input-group-text" id="lblCatName">Tên bài hát</span>
-                                <input type="text" class="form-control" name="tenBaiHat" value = "<?php echo $row['ten_bhat'];?>">
-                            </div>
-                            <div class="input-group mt-3 mb-3">
-                                <span class="input-group-text" id="lblCatName">Tóm tắt</span>
-                                <input type="text" class="form-control" name="tomTat" value = "<?php echo $row['tomtat'];?>">
-                            </div>
-                            <div class="input-group mt-3 mb-3">
-                                <span class="input-group-text" id="lblCatName">Nội dung</span></span>
-                                <input type="text" class="form-control" name="noiDung" value = "<?php echo $row['noidung'];?>">
-                            </div>
-                            <div class="input-group mt-3 mb-3">
-                                <span class="input-group-text" id="lblCatName">Ngày viết</span></span>
-                                <input type="text" class="form-control" name="ngayViet" value = "<?php echo $row['ngayviet'];?>">
-                            </div>
-                            <form method="POST" action="upload-file.php" enctype="multipart/form-data">
-                                <label for="image"><b>Upload file:</b></label>
-                                <input type="file" name="image" accept="image/*" id="image"><br>
-                                <input type="submit" value="Upload">
-                            </form>
-                            <div class="form-group float-end ">
-                                <input type="submit" value="Lưu lại" class="btn btn-success">
-                                <a href="article.php" class="btn btn-warning ">Quay lại</a>
-                            </div>
+                    <form action="edit_article.php?id=<?php echo $row['ma_bviet'];?>" method="POST">
+                        <div class="input-group mt-3 mb-3">
+                            <span class="input-group-text" id="lblCatId">Mã bài viết</span>
+                            <input type="text" class="form-control" name="maBaiViet" readonly value = "<?php echo $row['ma_bviet'];?>">
                         </div>
-                    </form>
-                    <?php
-                        };
-                    ?>
-                </div>
+                        <div class="input-group mt-3 mb-3">
+                            <span class="input-group-text" id="lblCatName">Tiêu đề</span>
+                            <input type="text" class="form-control" name="tieuDe" value = "<?php echo $row['tieude'];?>">
+                        </div>
+                        <div class="input-group mt-3 mb-3">
+                            <span class="input-group-text" id="lblCatName">Tên bài hát</span>
+                            <input type="text" class="form-control" name="tenBaiHat" value = "<?php echo $row['ten_bhat'];?>">
+                        </div>
+                        <div class="input-group mt-3 mb-3">
+                            <span class="input-group-text" id="lblCatName">Tóm tắt</span>
+                            <input type="text" class="form-control" name="tomTat" value = "<?php echo $row['tomtat'];?>">
+                        </div>
+                        <div class="input-group mt-3 mb-3">
+                            <span class="input-group-text" id="lblCatName">Nội dung</span></span>
+                            <input type="text" class="form-control" name="noiDung" value = "<?php echo $row['noidung'];?>">
+                        </div>
+                        <div class="input-group mt-3 mb-3">
+                            <span class="input-group-text" id="lblCatName">Ngày viết</span></span>
+                            <input type="text" class="form-control" name="ngayViet" value = "<?php echo $row['ngayviet'];?>">
+                        </div>
+                        <div>
+                            <label for="image"><b>Upload file:</b></label>
+                            <input type="file" name="image" accept="image/*" id="image" values = "<?php echo $row['hinhanh'];?>"><br>
+                        </div>
+                        <div class="form-group float-end ">
+                            <input type="submit" value="Lưu lại" class="btn btn-success">
+                            <a href="article.php" class="btn btn-warning ">Quay lại</a>
+                        </div>
+                    </div>
+                </form>
+                <?php
+                    };
+                ?>
             </div>
+        </div>
     </main>
     <?php
+        
         //Xử lý update cho bài viết
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $U_maBaiViet   = $_POST['maBaiViet'];
@@ -111,11 +110,12 @@
             $U_tomTat   = $_POST['tomTat'];
             $U_noiDung   = $_POST['noiDung'];
             $U_ngayViet   = $_POST['ngayViet'];
-            $U_linkHinhAnh   = $_POST['image'];
+            $U_hinhAnh   = $_POST['image'];
+            var_dump($_POST);
+            $sql_update = "UPDATE baiviet SET tieude=:tieude,ten_bhat=:ten_bhat,tomtat=:tomtat,noidung=:noidung,ngayviet=:ngayviet,hinhanh=:hinhanh WHERE ma_bviet=:ma_bviet";
+            $result = pdo($pdo, $sql_update, ['tieude' => $U_tieuDe, 'ten_bhat' => $U_tenBaiHat, 'tomtat' =>$U_tomTat, 'noidung' =>$U_noiDung, 'ngayviet'=>$U_ngayViet, 'hinhanh' =>$U_hinhAnh, 'ma_bviet' => $U_maBaiViet]);
         }
-        var_dump($_POST);
-        // $sql_update = "UPDATE baiviet SET tieude=:tieude,ten_bhat=:ten_bhat,tomtat=:tomtat,noidung=:noidung,ngayviet=:ngayviet,hinhanh=:hinhanh WHERE ma_bviet=:ma_bviet";
-        // $result = pdo($pdo, $sql_update, ['tieude' => $U_tieuDe, 'ten_bhat' => $U_tenBaiHat, 'tomtat' =>$U_tomTat, 'noidung' =>$U_noiDung, 'ngayviet'=>$U_ngayViet, 'hinhanh' =>$U_linkHinhAnh, 'ma_bviet' => $U_maBaiViet]);
+      
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
