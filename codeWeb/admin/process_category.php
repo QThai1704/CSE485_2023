@@ -20,12 +20,16 @@
     }
     $sql_select = "SELECT * FROM theloai";
     $count = pdo($pdo,$sql_select)->rowCount();
-    $sql_insert = "INSERT INTO theloai VALUE (:result_count,:txtCatName)"; 
-    $result = pdo($pdo,$sql_insert,['result_count' => $count + 1 ,'txtCatName' => $tloai['txtCatName']]);
+    $sql_insert = "INSERT INTO theloai(ma_tloai, ten_tloai) VALUE (:result_count,:txtCatName)"; 
+    $result = pdo($pdo,$sql_insert,['result_count' => $count + 10 ,'txtCatName' => $tloai['txtCatName']]);
     if($result){
         echo "<script>alert('Thêm thể thể loại thành công');</script>";
         echo "<script>window.location = 'category.php'</script>";
-    }   
+    }
+    else{
+        echo "<script>alert('Thêm thể thể loại không công');</script>";
+        echo "<script>window.location = 'category.php'</script>";
+    }
 }
 
   
