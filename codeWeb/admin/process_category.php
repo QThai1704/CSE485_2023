@@ -2,7 +2,7 @@
     include('../connect.php');
 
     $tloai = filter_input_array(INPUT_POST);
-    $erros = ['txtCatName' => '', 'txtCatId' => ''];
+
     if(isset($tloai['txtCatId'])){
         if(isset($tloai['txtCatName'])){
             $slq_update = "UPDATE theloai SET ten_tloai=:ten_tloai WHERE ma_tloai=:id; ";
@@ -25,9 +25,8 @@
     if($result){
         echo "<script>alert('Thêm thể thể loại thành công');</script>";
         echo "<script>window.location = 'category.php'</script>";
-    }
-   
-    }
+    }   
+}
 
   
 

@@ -1,3 +1,16 @@
+<?php
+    include('../connect.php');
+    $sql_users = "SELECT COUNT(*) as soluong FROM users;";
+    $sql_theloai = "SELECT COUNT(*) as soluong FROM theloai";
+    $sql_tacgia = "SELECT COUNT(*) as soluong FROM tacgia";
+    $sql_baiviet = "SELECT COUNT(*) as soluong FROM baiviet";
+
+    $rs_users = pdo($pdo,$sql_users)->fetch();
+    $rs_theloai = pdo($pdo, $sql_theloai)->fetch();
+    $rs_tacgia = pdo($pdo,$sql_tacgia)->fetch();
+    $rs_baiviet = pdo($pdo,$sql_baiviet)->fetch();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,7 +66,7 @@
                         </h5>
 
                         <h5 class="h1 text-center">
-                            110
+                            <?=  $rs_users['soluong'] - 1 ?>
                         </h5>
                     </div>
                 </div>
@@ -67,7 +80,7 @@
                         </h5>
 
                         <h5 class="h1 text-center">
-                            10
+                        <?=  $rs_theloai['soluong'] - 1 ?>
                         </h5>
                     </div>
                 </div>
@@ -81,7 +94,7 @@
                         </h5>
 
                         <h5 class="h1 text-center">
-                            20
+                        <?=  $rs_tacgia['soluong'] - 1 ?>
                         </h5>
                     </div>
                 </div>
@@ -95,7 +108,7 @@
                         </h5>
 
                         <h5 class="h1 text-center">
-                            110
+                        <?=  $rs_baiviet['soluong'] ?>
                         </h5>
                     </div>
                 </div>
