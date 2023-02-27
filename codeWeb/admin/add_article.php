@@ -39,6 +39,9 @@
                     <li class="nav-item">
                         <a class="nav-link active fw-bold" href="article.php">Bài viết</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="user.php">Người dùng</a>
+                    </li>
                 </ul>
                 </div>
             </div>
@@ -56,7 +59,7 @@
                     $sql_select_tloai = "select ma_tloai, ten_tloai from theloai";
                     $result_select_tloai = pdo($pdo, $sql_select_tloai);
                 ?>
-                <form action="add_article.php" method="post">
+                <form action="process_add_article.php" method="post">
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="lblCatName">Tiêu đề</span>
                         <input type="text" class="form-control" name="I_tieuDe" >
@@ -124,22 +127,8 @@
             </div>
         </div>
     </main>
+
     <?php
-    //Xử lý thêm bài viết
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $I_tieuDe   = $_POST['I_tieuDe'];
-        $I_tenBaiHat   = $_POST['I_tenBaiHat'];
-        $I_maTheLoai = $_POST['I_tenTheLoai'];
-        $I_tomTat   = $_POST['I_tomTat'];
-        $I_noiDung   = $_POST['I_noiDung'];
-        $I_maTacGia = $_POST['I_tenTacGia'];
-        $I_ngayViet   = $_POST['I_ngayViet'];
-        $I_linkHinhAnh   = $_POST['I_hinhAnh'];
-    }
-    $sql_select = "select * from baiviet";
-    $result_select = pdo($pdo, $sql_select)->rowCount();
-    $sql_insert = "INSERT INTO baiviet(ma_bviet, tieude, ten_bhat, ma_tloai, tomtat, noidung, ma_tgia, ngayviet, hinhanh) VALUES (:ma_bviet,:tieude,:ten_bhat,:ma_tloai,:tomtat,:noidung,:ma_tgia,:ngayviet,:hinhanh)";
-    $result_insert = pdo($pdo, $sql_insert, [$result_select+1, 'tieude' => $I_tieuDe, 'ten_bhat' => $I_tenBaiHat,'ma_tloai' => $I_maTheLoai, 'tomtat' => $I_tomTat,'noidung' => $I_noiDung,'ma_tgia' => $I_maTacGia,'ngayviet' => $I_ngayViet,'hinhanh' => $I_linkHinhAnh]);
     include('../include/footer.php');
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>

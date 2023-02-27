@@ -114,6 +114,13 @@
             var_dump($_POST);
             $sql_update = "UPDATE baiviet SET tieude=:tieude,ten_bhat=:ten_bhat,tomtat=:tomtat,noidung=:noidung,ngayviet=:ngayviet,hinhanh=:hinhanh WHERE ma_bviet=:ma_bviet";
             $result = pdo($pdo, $sql_update, ['tieude' => $U_tieuDe, 'ten_bhat' => $U_tenBaiHat, 'tomtat' =>$U_tomTat, 'noidung' =>$U_noiDung, 'ngayviet'=>$U_ngayViet, 'hinhanh' =>$U_hinhAnh, 'ma_bviet' => $U_maBaiViet]);
+            if ($result) {
+                echo "<script>alert('Chỉnh sửa bài viết thành công!');</script>";
+                echo "<script>window.location = 'article.php'</script>";
+            } else {
+                echo "<script>alert('Chỉnh sửa bài viết thất bại!');</script>";
+                echo "<script>window.location = 'article.php'</script>";
+            }
         }
       
     ?>
