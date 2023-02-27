@@ -78,8 +78,6 @@ $result = pdo($pdo,$sql, ['id' => $id])->fetch();
         </div>
 
         <?php 
-         $tgia = filter_input_array(INPUT_POST);
-         $erros = ['txtCatName' => '', 'txtCatId' => ''];
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $txtCatId = $_POST["txtCatId"];
             $txtCatName = $_POST["txtCatName"];
