@@ -64,13 +64,10 @@ $result = pdo($pdo,$sql, ['id' => $id])->fetch();
                     </div>
 
                     <div class="input-group mt-3 mb-3">
+                        
                         <span class="input-group-text" id="lblCatName">Tên tác giả</span>
                         <input type="text" class="form-control" name="txtCatName" value="<?php echo $result['ten_tgia'] ?>">
                     </div>
-                    <!-- <form action="upload.php" method="post" enctype="multipart/form-data">
-                        <input type="file" name="image">
-                        <input type="submit" value="Upload">
-                    </form> -->
 
                     <div class="form-group  float-end ">
                         <input type="submit" value="Lưu lại" class="btn btn-success">
@@ -81,11 +78,17 @@ $result = pdo($pdo,$sql, ['id' => $id])->fetch();
         </div>
 
         <?php 
+         $tgia = filter_input_array(INPUT_POST);
+         $erros = ['txtCatName' => '', 'txtCatId' => ''];
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $txtCatId = $_POST["txtCatId"];
             $txtCatName = $_POST["txtCatName"];
             $sql = "Update tacgia SET ten_tgia = :txtCatName where ma_tgia = :id";
-            $stmt = pdo($pdo, $sql, ['id' => $txtCatId,'txtCatName' => $txtCatName ]);
+            $update = pdo($pdo, $sql, ['id' => $txtCatId,'txtCatName' => $txtCatName ]);
+            if($update){
+                echo "<script>alert('Chỉnh sửa tác giả thành công');</script>";
+                echo "<script>window.location = 'author.php'</script>";
+            }
         }
         ?>
     </main>

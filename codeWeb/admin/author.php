@@ -67,7 +67,7 @@ require '/xampp/htdocs/CSE485_2023/codeWeb/connect.php';
                     </thead>
                     <tbody>
                         <?php
-                        $sql = 'select * from tacgia';
+                        $sql = 'select * from tacgia limit 99999 offset 1';
                         $result = pdo($pdo, $sql,);
                         if ($result->rowCount() > 0) {
                             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -90,9 +90,6 @@ require '/xampp/htdocs/CSE485_2023/codeWeb/connect.php';
                 </table>
             </div>
         </div>
-
-
-
 
     </main>
     <footer class="bg-white d-flex justify-content-center align-items-center border-top border-secondary  border-2" style="height:80px">
